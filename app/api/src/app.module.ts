@@ -8,6 +8,8 @@ import { Task } from './task/task.entity';
 import { TaskModule } from './task/task.module';
 import { List } from './list/list.entity';
 import { ListModule } from './list/list.module';
+import { History } from './history/history.entity';
+import { HistoryModule } from './history/history.module';
 
 @Module({
   imports: [
@@ -26,7 +28,8 @@ import { ListModule } from './list/list.module';
       logging: true,
     }),
     TaskModule,
-    ListModule
+    ListModule,
+    HistoryModule
   ],
   controllers: [AppController],
   providers: [AppService],
