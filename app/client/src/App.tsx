@@ -1,33 +1,36 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { Box, Heading } from '@chakra-ui/react'
+import AddList from './Components/AddList'
+import axios from 'axios'
+import { useQuery } from '@tanstack/react-query'
+import List from './Components/List'
+import { IList } from './interfaces'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { data: listData } = useQuery({
+    queryKey: ['fetch-list'],
+    queryFn: async () => {
+      const res =  await axios.get('/api/list')
+      return res.data
+    }
+  })
+  console.log(listData);
+  
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      
+        <Box display='flex'  alignItems='center' justifyContent='space-between' width='90%'>
+          <Heading size='md'>My Task Board</Heading>
+          <AddList/>
+        </Box>
+        <Box display='flex'  >
+          {listData?.map((list) => <List list={list} />)}
+        </Box>
+       
+      
+      
     </>
   )
 }

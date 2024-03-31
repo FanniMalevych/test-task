@@ -9,3 +9,10 @@ export interface ITaskData {
 export interface IListData {
   name: string;
 }
+
+export interface IList {
+  list : {
+    id: number;
+    name: string;
+  }
+}
