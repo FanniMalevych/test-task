@@ -1,5 +1,9 @@
 # test-task
 
-run npm install
+## Installation
+
+npm install
+
+# development
 
 npm run dev
