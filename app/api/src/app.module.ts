@@ -5,8 +5,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Task } from './task/task.entity';
-
 import { TaskModule } from './task/task.module';
+import { List } from './list/list.entity';
+import { ListModule } from './list/list.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { TaskModule } from './task/task.module';
       synchronize: true,
       logging: true,
     }),
-    TaskModule
+    TaskModule,
+    ListModule
   ],
   controllers: [AppController],
   providers: [AppService],
