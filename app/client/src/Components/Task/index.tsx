@@ -1,12 +1,22 @@
-import { Box, Button, FormLabel, Heading, IconButton, Input, Menu, MenuButton, MenuItem, MenuList, Modal, Select, Text, useDisclosure, } from "@chakra-ui/react"
-import { ITask, ITaskData } from "../../interfaces";
+import { 
+    Box, 
+    Button, 
+    FormLabel, 
+    IconButton, 
+    Input, 
+    Menu, 
+    MenuButton, 
+    MenuItem, 
+    MenuList, 
+    Modal, 
+    Select, 
+    Text, 
+    useDisclosure, } from "@chakra-ui/react"
 import { CalendarIcon, DeleteIcon, EditIcon, HamburgerIcon } from "@chakra-ui/icons";
-import AddTask from "../AddTask";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
-import { setDate } from "date-fns";
 import TaskInfo from "../TaskInfo";
 
 
@@ -124,17 +134,13 @@ const Task = ( {task}: ITask) => {
             <FormLabel>Move to</FormLabel>
             <Select onChange={(e)=> setList(e.target.value)} marginBottom='10px' defaultValue={currentList?.name}>
             {listData?.map(el => <option value={el.name}>{el.name}</option>)}
-              
             </Select>
-    
-     
              <Button variant='ghost' marginRight='5px' onClick={handleSubmit}>Update task</Button>
              <Button variant='ghost' marginRight='5px' onClick={()=>setIsEditable(false)}>Cancel</Button>
         </>}
-        <Modal isOpen={isOpen} onClose={onClose}>
-        <TaskInfo id={task?.id}/>
-        </Modal>
-
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <TaskInfo id={task?.id}/>
+            </Modal>
         </Box>
     )
 }
