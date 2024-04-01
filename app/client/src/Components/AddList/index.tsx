@@ -49,7 +49,6 @@ const AddList = () => {
   return (
     <>
       <Button onClick={onOpen}> <Text margin='10px'>Add new list</Text> <AddIcon padding='2px'/></Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

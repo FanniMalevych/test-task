@@ -1,6 +1,6 @@
-import { Box, Button, FormLabel, Heading, IconButton, Input, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react"
-import { IList, IListData, ITaskData } from "../../interfaces"
-import { HamburgerIcon, AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons"
+import { Box, Button, FormLabel, IconButton, Input, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react"
+import { IList, IListData } from "../../interfaces"
+import { HamburgerIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons"
 import AddTask from "../AddTask"
 import axios from "axios"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
@@ -61,36 +61,29 @@ const List = ( { list } : IList) => {
         <Box display='flex' alignItems='center' width='300px' border='1px dashed black' justifyContent='space-between' borderRadius={5} p={3} m={2}> 
             <Text fontSize='xl'>{list.name}</Text>
             {listTasks?.length}
-        
         <Menu>
-        <MenuButton
-          as={IconButton}
-          aria-label='Options'
-          icon={<HamburgerIcon />}
-          variant='outline'
-        />
-        <MenuList>
-           
-          <MenuItem icon={<EditIcon />} onClick={() => setEditable(true)} >
-            Edit list
-          </MenuItem>
-          <MenuItem icon={<DeleteIcon />} onClick={handleDelete}>
-            Delete
-          </MenuItem>
-          <AddTask  listId={list.id}/>
-        </MenuList>
-      </Menu>
-      </Box> : <><FormLabel>List name</FormLabel>
-              <Input type='text' value={name} onChange={(e) => setName(e.target.value)} />
-
-            <Button variant='ghost' marginRight='5px' onClick={handleSubmit}>Save</Button>
-            <Button mr={3} onClick={() => setEditable(false)}>
-              Close
-            </Button></>
-}
-      {/* <Box>
-        <AddTask listId={list?.id}/>
-        </Box> */}
+            <MenuButton
+            as={IconButton}
+            aria-label='Options'
+            icon={<HamburgerIcon />}
+            variant='outline'
+            />
+            <MenuList>
+                <MenuItem icon={<EditIcon />} onClick={() => setEditable(true)} >
+                    Edit list
+                </MenuItem>
+                <MenuItem icon={<DeleteIcon />} onClick={handleDelete}>
+                    Delete
+                </MenuItem>
+                <AddTask  listId={list.id}/>
+            </MenuList>
+        </Menu>
+        </Box> : <><FormLabel>List name</FormLabel>
+                    <Input type='text' value={name} onChange={(e) => setName(e.target.value)} />
+                    <Button variant='ghost' marginRight='5px' onClick={handleSubmit}>Save</Button>
+                    <Button mr={3} onClick={() => setEditable(false)}>
+                    Close
+                    </Button></>}
         <Box>
             {listTasks?.map((el) => <Task task={el}/>)}
         </Box>

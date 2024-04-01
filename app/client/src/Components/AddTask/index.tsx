@@ -15,7 +15,6 @@ import {
     FormControl,
     MenuItem,
     Select,
-    Box
 } from "@chakra-ui/react"
 import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -70,7 +69,6 @@ const AddTask = ( { listId } ) => {
   
   return (
     <>
-    
     <MenuItem onClick={onOpen}> <AddIcon padding='2px'/> <Text margin='10px'>Add new task</Text> </MenuItem>
     <Modal isOpen={isOpen} onClose={onClose}>
      <ModalOverlay />
@@ -97,7 +95,6 @@ const AddTask = ( { listId } ) => {
             />
       </FormControl>
            </ModalBody>
-
           <ModalFooter>
              <Button variant='ghost' marginRight='5px' onClick={handleSubmit}>Add new task</Button>
             <Button colorScheme='blue' mr={3} onClick={handleClose}>
