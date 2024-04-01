@@ -1,13 +1,16 @@
-import { Box, Heading, IconButton, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react"
-import { IList, ITaskData } from "../../interfaces"
+import { Box, Button, FormLabel, Heading, IconButton, Input, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react"
+import { IList, IListData, ITaskData } from "../../interfaces"
 import { HamburgerIcon, AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons"
 import AddTask from "../AddTask"
 import axios from "axios"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Task from "../Task"
+import { useState } from "react"
 
 
 const List = ( { list } : IList) => {
+    const [editable, setEditable] = useState(false)
+    const [name, setName] = useState (list?.name)
     const { data: tasksData } = useQuery({
         queryKey: ['fetch-tasks'],
         queryFn: async () => {
@@ -18,9 +21,43 @@ const List = ( { list } : IList) => {
 
       const listTasks = tasksData?.filter(el => el.listId === list.id)
 
+      const queryClient = useQueryClient()
+      const {mutate: updateList} = useMutation({
+        mutationFn: (listData: IListData) =>
+            axios.put(`/api/list/${list.id}`, listData).then((res) => res.data),
+        onSuccess: () => {
+            queryClient.refetchQueries({queryKey :['fetch-tasks']}),
+            queryClient.refetchQueries({queryKey :['fetch-history']}),
+            queryClient.refetchQueries({queryKey :['fetch-list']})
+        }
+    });
+
+    const {mutate: deleteList} = useMutation({
+        mutationFn: () =>
+            axios.delete(`/api/list/${list.id}`).then((res) => res.data),
+        onSuccess: () => {
+          queryClient.refetchQueries({queryKey :['fetch-tasks']}),
+          queryClient.refetchQueries({queryKey :['fetch-history']}),
+          queryClient.refetchQueries({queryKey :['fetch-list']})
+        }  
+    });
+
+    const handleSubmit = () => {
+        updateList({name})
+        setEditable(false)
+    }
+
+    const handleDelete = () => {
+        deleteList()
+        setEditable(false)       
+    }
+
+
+
     return (
         <>
         <Box display='flex' flexDirection='column'  width='300px' p={3} m={2}>
+        {!editable ? 
         <Box display='flex' alignItems='center' width='300px' border='1px dashed black' justifyContent='space-between' borderRadius={5} p={3} m={2}> 
             <Text size='md'>{list.name}</Text>
             {listTasks?.length}
@@ -34,18 +71,23 @@ const List = ( { list } : IList) => {
         />
         <MenuList>
            
-          <MenuItem icon={<EditIcon />} >
+          <MenuItem icon={<EditIcon />} onClick={() => setEditable(true)} >
             Edit list
           </MenuItem>
-          <MenuItem icon={<DeleteIcon />} >
+          <MenuItem icon={<DeleteIcon />} onClick={handleDelete}>
             Delete
           </MenuItem>
           <AddTask  listId={list.id}/>
         </MenuList>
       </Menu>
+      </Box> : <><FormLabel>List name</FormLabel>
+              <Input type='text' value={name} onChange={(e) => setName(e.target.value)} />
 
-     
-      </Box>
+            <Button variant='ghost' marginRight='5px' onClick={handleSubmit}>Save</Button>
+            <Button mr={3} onClick={() => setEditable(false)}>
+              Close
+            </Button></>
+}
       {/* <Box>
         <AddTask listId={list?.id}/>
         </Box> */}
