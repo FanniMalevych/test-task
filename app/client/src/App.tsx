@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import List from './Components/List'
 import { IList } from './interfaces'
+import History from './Components/History'
 
 function App() {
   const { data: listData } = useQuery({
@@ -15,15 +16,16 @@ function App() {
       return res.data
     }
   })
-  console.log(listData);
   
-
   return (
     <>
       
         <Box display='flex'  alignItems='center' justifyContent='space-between' width='90%'>
           <Heading size='md'>My Task Board</Heading>
-          <AddList/>
+          <Box>
+            <History />
+            <AddList />
+            </Box>
         </Box>
         <Box display='flex'  >
           {listData?.map((list) => <List list={list} />)}

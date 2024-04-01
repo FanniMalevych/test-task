@@ -28,7 +28,7 @@ import { startOfDay } from "date-fns"
 
 
 
-const AddTask = ( { listId } : number) => {
+const AddTask = ( { listId } ) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [name, setName] = useState ('')
   const [description, setDescription] = useState ('')
@@ -37,10 +37,11 @@ const AddTask = ( { listId } : number) => {
   const handleClose = () => {
     onClose()
     setName('')
+    setDescription('')
+    setPriority('')
+    setDate(new Date())
   }
-  console.log(name, description, priority, date, listId);
   
-
   const queryClient = useQueryClient()
   const { mutate: addTask } = useMutation({
     mutationFn: (taskData: ITaskData) =>

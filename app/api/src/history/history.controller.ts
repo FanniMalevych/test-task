@@ -11,11 +11,6 @@ export class HistoryController {
   async findAll(): Promise<History[]> {
     return this.historyService.findAllHistory();
   }
-  
-  @Get()
-  async find(@Param('id') id: number) {
-    return this.historyService.findAllTaskHistory(id);
-  }
 
   @Post()
   async create(@Body() historyToAdd: HistoryDTO) {

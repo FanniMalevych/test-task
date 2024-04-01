@@ -16,3 +16,14 @@ export interface IList {
     name: string;
   }
 }
+
+export interface ITask {
+  task: {
+    id: number;
+    name: string;
+    listId: number;
+    description: string;
+    dueDate: Date;
+    priority: string;
+  }
+}

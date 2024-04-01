@@ -20,10 +20,6 @@ export class HistoryService {
     return this.historyRepository.save(history);
   }
 
-  async findAllTaskHistory(taskId: number): Promise<History[]> {
-    return this.historyRepository.find({ where: { taskId } });
-  }
-
   async findAllHistory(): Promise<History[]> {
     return this.historyRepository.find();
   }

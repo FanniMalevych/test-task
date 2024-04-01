@@ -43,8 +43,10 @@ export class TaskService {
     return this.taskRepository.find();
   }
 
-  async viewTask(id: number): Promise<Task> {
-    return this.taskRepository.findOneBy({ id });
+  async viewTask(id: number): Promise<unknown> {
+    const task = await this.taskRepository.findOneBy({ id });
+    const history = await this.historyRepository.find({ where: { taskId: id }})
+    return [task, history]
   }
 
   async updateTask(id: number, updateTask: TaskDTO): Promise<Task> {
