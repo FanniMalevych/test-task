@@ -59,7 +59,7 @@ const List = ( { list } : IList) => {
         <Box display='flex' flexDirection='column'  width='300px' p={3} m={2}>
         {!editable ? 
         <Box display='flex' alignItems='center' width='300px' border='1px dashed black' justifyContent='space-between' borderRadius={5} p={3} m={2}> 
-            <Text size='md'>{list.name}</Text>
+            <Text fontSize='xl'>{list.name}</Text>
             {listTasks?.length}
         
         <Menu>

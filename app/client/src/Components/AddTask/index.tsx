@@ -13,8 +13,6 @@ import {
     Input,
     FormLabel,
     FormControl,
-    FormErrorMessage,
-    FormHelperText,
     MenuItem,
     Select,
     Box
@@ -22,9 +20,8 @@ import {
 import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
-import { IListData, ITaskData } from "../../interfaces"
+import { ITaskData } from "../../interfaces"
 import { SingleDatepicker } from "chakra-dayzed-datepicker"
-import { startOfDay } from "date-fns"
 
 
 
@@ -32,13 +29,13 @@ const AddTask = ( { listId } ) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [name, setName] = useState ('')
   const [description, setDescription] = useState ('')
-  const [priority, setPriority] = useState ('')
+  const [priority, setPriority] = useState ('high')
   const [date, setDate] = useState(new Date());
   const handleClose = () => {
     onClose()
     setName('')
     setDescription('')
-    setPriority('')
+    setPriority('high')
     setDate(new Date())
   }
   
@@ -58,7 +55,7 @@ const AddTask = ( { listId } ) => {
     onClose()
     setName('')
     setDescription('')
-    setPriority('')
+    setPriority('high')
     setDate(new Date())
 
     addTask({

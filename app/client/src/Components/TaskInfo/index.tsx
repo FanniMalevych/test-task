@@ -23,11 +23,11 @@ const TaskInfo = ({ id }) => {
           <ModalCloseButton />
           <ModalBody>
             {taskData?.length &&
-           <> <Text>{taskData[0]?.name}</Text>
+           <> <Text fontSize='xl'>{taskData[0]?.name}</Text>
             <Text>{taskData[0]?.description}</Text> 
 
             <Divider orientation='horizontal' p={3}/>
-            {taskData[1]?.map((el ) => <Text>{el.action}</Text>)}</> }
+            {taskData[1]?.map((el ) => <Text >{el.action}</Text>)}</> }
 
             
           </ModalBody>

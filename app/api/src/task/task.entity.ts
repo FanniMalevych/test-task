@@ -35,7 +35,7 @@ export class Task {
   create_time: Date;
 
   @Column({ type: 'date' })
-  due_date: Date;
+  due_date: Date | string;
 
   @Column({ type: 'enum', enum: ['low', 'high', 'medium'] })
   priority: string;

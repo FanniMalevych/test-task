@@ -15,6 +15,6 @@ export class History {
   @Column()
   taskId: number;
 
-  @Column({ type: 'date' })
-  createdAt: Date;
+  @Column({ type: 'varchar' })
+  createdAt: string;
 }

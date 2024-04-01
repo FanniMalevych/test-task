@@ -77,7 +77,7 @@ const Task = ( {task}: ITask) => {
         <Box border='1px solid black' borderRadius={5} p={3} width='300px' m={2}>
         {!isEditable
          ? <><Box display="flex" alignItems="center" justifyContent='space-between'  p={3} m={1}>
-            <Text onClick={onOpen} cursor='pointer'> {task.name} </Text> 
+            <Text onClick={onOpen} cursor='pointer' fontSize='xl'> {task.name} </Text> 
             <Menu>
                 <MenuButton
                 as={IconButton}
@@ -95,10 +95,10 @@ const Task = ( {task}: ITask) => {
                 </MenuList>
             </Menu>
          </Box>
-         <Text> {task.description} </Text> 
-         <Text> {task.priority} </Text> 
-         <Text><CalendarIcon/> {task?.due_date}</Text>
-         <FormLabel>Move to</FormLabel>
+         <Text textAlign='start' p={1}> {task.description} </Text> 
+         <Text textAlign='start' p={1}> Priority: {task.priority} </Text> 
+         <Text textAlign='start' p={1} display='flex' alignItems='center'><CalendarIcon marginRight='5px'/> {task?.due_date}</Text>
+         <FormLabel p={1}>Move to</FormLabel>
             <Select onChange={(e)=> setList(e.target.value)} marginBottom='10px' defaultValue={currentList?.name}>
             {listData?.map(el => <option value={el.name} >{el.name}</option>)}
             </Select>

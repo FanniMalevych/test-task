@@ -33,7 +33,7 @@ export class TaskService {
     const history = new History();
     history.task = task;
     history.action = `You created task ${createTask.name}`;
-    history.createdAt = new Date();
+    history.createdAt = `${new Date().toISOString().slice(0, 10)} at ${new Date().getHours()}:${new Date().getMinutes()}`;
     await this.historyRepository.save(history);
 
     return res;
@@ -67,7 +67,7 @@ export class TaskService {
     if (task.description != updateTask.description) {
       action += ` You changed the description of the task.`;
     }
-    if (task.due_date != updateTask.dueDate) {
+    if (task.due_date != new Date(updateTask.dueDate).toISOString().slice(0, 10)) {
       action += ` You changed task due date from ${task.due_date} to ${updateTask.dueDate}.`;
     }
     if (task.priority != updateTask.priority) {
@@ -80,13 +80,13 @@ export class TaskService {
     task.name = updateTask.name;
     task.listId = updateTask.listId;
     task.description = updateTask.description;
-    task.due_date = updateTask.dueDate;
+    task.due_date = new Date(updateTask.dueDate).toISOString().slice(0, 10);
     task.priority = updateTask.priority;
     task.create_time = task.create_time;
 
     history.action = action;
     history.task = task;
-    history.createdAt = new Date();
+    history.createdAt = `${new Date().toISOString().slice(0, 10)} at ${new Date().getHours()}:${new Date().getMinutes()}`;
     await this.historyRepository.save(history);
 
     return this.taskRepository.save(task);

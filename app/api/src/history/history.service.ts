@@ -13,8 +13,8 @@ export class HistoryService {
 
   async addHistory(historyToAdd: HistoryDTO): Promise<History> {
     const history = new History();
-    history.action = historyToAdd.action;
-    history.createdAt = new Date()
+    history.action = historyToAdd.action;   
+    history.createdAt = `${new Date().toISOString().slice(0, 10)} at ${new Date().getHours()}:${new Date().getMinutes()}`;
     history.taskId = historyToAdd.taskId;
 
     return this.historyRepository.save(history);

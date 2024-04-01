@@ -1,5 +1,5 @@
-import { RepeatClockIcon } from "@chakra-ui/icons"
-import { useDisclosure, Button, Text, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Divider, Box } from "@chakra-ui/react"
+import { CalendarIcon, RepeatClockIcon } from "@chakra-ui/icons"
+import { useDisclosure, Button, Text,  Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Divider, Box } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 
@@ -24,7 +24,11 @@ const History = () => {
           <ModalHeader>Your tasks history</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {historyListData?.map(el => <Box p={3}><Text>{el.action}</Text> <Divider orientation='horizontal' /></Box>)}
+            {historyListData?.map(el => <Box p={3}>
+                <Text>{el.action}</Text> 
+                <Divider orientation='horizontal' />
+                <Box><CalendarIcon marginRight='5px'/> {el.createdAt}</Box>
+                </Box>)}
             
           </ModalBody>
         </ModalContent>
